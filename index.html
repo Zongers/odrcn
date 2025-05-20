@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open Date & Revenue Calculator | Workflow</title>
+    <link rel="icon" href="https://i.ibb.co/W48rv8hd/icon.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6c5ce7;
+            --primary-light: #a29bfe;
+            --primary-dark: #5649c0;
+            --primary-transparent: rgba(108, 92, 231, 0.1);
+            --success: #00b894;
+            --success-text: #00b894;
+            --danger: #ff7675;
+            --danger-text: #ff7675;
+            --text-primary: #2d3436;
+            --text-secondary: #636e72;
+            --bg-color: #f9f9f9;
+            --card-bg: #ffffff;
+            --border-color: #dfe6e9;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --white: #ffffff;
+        }
+
+        [data-theme="mini-lite"] {
+            --primary: #6c5ce7;
+            --primary-light: #a29bfe;
+            --primary-dark: #5649c0;
+            --primary-transparent: rgba(108, 92, 231, 0.1);
+            --success: #00b894;
+            --success-text: #00b894;
+            --danger: #ff7675;
+            --danger-text: #ff7675;
+            --text-primary: #2d3436;
+            --text-secondary: #636e72;
+            --bg-color: #f0f2f5;
+            --card-bg: #ffffff;
+            --border-color: #d1d5db;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            --white: #ffffff;
+        }
+
+        [data-theme="dark"] {
+            --primary: #7d6bff;
+            --primary-light: #5a4ac5;
+            --primary-dark: #9a86ff;
+            --primary-transparent: rgba(125, 107, 255, 0.1);
+            --success: #55efc4;
+            --success-text: #55efc4;
+            --danger: #ff7675;
+            --danger-text: #ff7675;
+            --text-primary: #f5f6fa;
+            --text-secondary: #dfe6e9;
+            --bg-color: #2d3436;
+            --card-bg: #3a4245;
+            --border-color: #4a5356;
+            --white: #ffffff;
+        }
+
+        [data-theme="really-dark"] {
+            --primary: #7d6bff;
+            --primary-light: #5a4ac5;
+            --primary-dark: #9a86ff;
+            --primary-transparent: rgba(125, 107, 255, 0.1);
+            --success: #55efc4;
+            --success-text: #55efc4;
+            --danger: #ff7675;
+            --danger-text: #ff7675;
+            --text-primary: #f5f6fa;
+            --text-secondary: #b2bec3;
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --border-color: #2d3436;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 40px;
+            transition: var(--transition);
+        }
+
+        /* Header Styling */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        .header h1 {
+            color: var(--primary);
+            font-size: 2.2rem;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .header p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        .theme-toggle {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--text-primary);
+        }
+
+        .theme-toggle:hover {
+            background: var(--primary-light);
+            color: white;
+            transform: rotate(30deg);
+        }
+
+        /* Main Container */
+        .main-container {
+            display: flex;
+            gap: 100px;
+            width: 100%;
+            max-width: 1000px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        /* Individual Box Styling */
+        .container {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            width: 100%;
+            max-width: 450px;
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+        }
+
+        .container:hover {
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Headings */
+        h2 {
+            color: var(--primary);
+            font-size: 22px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        h2 i {
+            font-size: 1.2em;
+        }
+
+        /* Input Fields */
+        .input-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        input {
+            width: 94%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 16px;
+            outline: none;
+            transition: var(--transition);
+            background: var(--card-bg);
+            color: var(--text-primary);
+        }
+
+        input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 10px rgba(108, 92, 231, 0.3);
+        }
+
+        /* Plus Button */
+        .plus-button {
+            background-color: var(--primary);
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .plus-button:hover {
+            background-color: var(--danger);
+        }
+
+        /* Buttons */
+        button {
+            background-color: var(--primary);
+            color: white;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: var(--transition);
+        }
+
+        button:hover {
+            background-color: var(--primary-dark);
+        }
+
+        /* Calculate Open Dates Button */
+        .open-dates-button {
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        /* Clear Button */
+        .clear-button {
+            background-color: #adadad;
+            color: white;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 48%;
+            font-size: 16px;
+            transition: var(--transition);
+            float: left;
+            margin-right: 4%;
+        }
+
+        .clear-button:hover {
+            background-color: var(--danger);
+        }
+
+        .clear-button:active {
+            background-color: #eb7a34;
+        }
+
+        /* Calculate Button (adjusted for side-by-side) */
+        .calculate-button {
+            width: 48%;
+            float: right;
+        }
+
+        /* Button Container */
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            width: 100%;
+        }
+
+        /* Results */
+        .result {
+            margin-top: 15px;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 12px;
+            background: var(--bg-color);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            clear: both;
+        }
+
+        /* Updated Colors as requested */
+        #prepaidResult { color: var(--primary); }
+        #mbbResult { color: var(--danger-text); }
+        #resultWithTax { color: var(--primary); }
+        #resultWithoutTax { color: var(--danger-text); }
+
+        /* Footer */
+        footer {
+            margin-top: auto;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            padding: 20px 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 850px) {
+            .main-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 30px;
+            }
+        }
+
+        /* Fix for date picker icon in dark mode */
+        [data-theme="dark"] input[type="date"]::-webkit-calendar-picker-indicator,
+        [data-theme="really-dark"] input[type="date"]::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1><i class="fas fa-search"></i> Workflow</h1>
+        <p>The productivity suite</p>
+        <button class="theme-toggle" id="themeToggle">
+            <i class="fas fa-sun"></i>
+        </button>
+    </div>
+
+    <div class="main-container">
+        <div class="container">
+            <h2><i class="far fa-calendar-alt"></i> Open Date Calculator</h2>
+            <input type="date" id="selectedDate">
+            <button class="open-dates-button" onclick="calculateOpenDates()">Calculate Open Dates</button>
+            <div class="result" id="prepaidResult">Prepaid Open Date: -</div>
+            <div class="result" id="mbbResult">MBB Open Date: -</div>
+        </div>
+
+        <div class="container">
+            <h2><i class="fas fa-calculator"></i> Revenue Calculator</h2>
+            <div class="input-group">
+                <input type="text" id="RevenueInput" placeholder="Enter Revenue">
+                <button class="plus-button" onclick="addPlus()">+</button>
+            </div>
+            <div class="button-container">
+                <button class="clear-button" onclick="clearInput()">Clear</button>
+                <button class="calculate-button" onclick="calculateTax()">Calculate</button>
+            </div>
+            <div class="result" id="resultWithTax">Revenue with tax: -</div>
+            <div class="result" id="resultWithoutTax">Revenue without tax: -</div>
+        </div>
+    </div>
+
+    <footer>
+        <!-- Footer content -->
+    </footer>
+
+    <script>
+        // Theme toggle functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const themeToggle = document.getElementById('themeToggle');
+            const themes = ['light', 'mini-lite', 'dark', 'really-dark'];
+            let currentThemeIndex = 0;
+            
+            // Load saved theme or default to light
+            const savedTheme = localStorage.getItem('workflowTheme');
+            if (savedTheme) {
+                currentThemeIndex = themes.indexOf(savedTheme);
+                if (currentThemeIndex === -1) currentThemeIndex = 0;
+                setTheme(themes[currentThemeIndex]);
+            }
+
+            themeToggle.addEventListener('click', function() {
+                currentThemeIndex = (currentThemeIndex + 1) % themes.length;
+                setTheme(themes[currentThemeIndex]);
+                localStorage.setItem('workflowTheme', themes[currentThemeIndex]);
+            });
+
+            function setTheme(theme) {
+                // Remove all theme attributes first
+                document.documentElement.removeAttribute('data-theme');
+                
+                // Set the current theme if not light
+                if (theme !== 'light') {
+                    document.documentElement.setAttribute('data-theme', theme);
+                }
+                
+                // Update the toggle icon
+                updateThemeIcon(theme);
+            }
+
+            function updateThemeIcon(theme) {
+                let icon;
+                switch(theme) {
+                    case 'light':
+                        icon = '<i class="fas fa-sun"></i>';
+                        break;
+                    case 'mini-lite':
+                        icon = '<i class="fas fa-cloud-sun"></i>';
+                        break;
+                    case 'dark':
+                        icon = '<i class="fas fa-moon"></i>';
+                        break;
+                    case 'really-dark':
+                        icon = '<i class="fas fa-moon"></i>';
+                        break;
+                    default:
+                        icon = '<i class="fas fa-sun"></i>';
+                }
+                themeToggle.innerHTML = icon;
+            }
+        });
+
+        function formatNumber(num) {
+            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
+        function calculateTax() {
+            let input = document.getElementById('RevenueInput').value;
+
+            if (input.trim() !== "") {
+                let sum = input.replace(/\s+/g, '').split('+').reduce((acc, num) => acc + parseFloat(num || 0), 0);
+
+                if (!isNaN(sum) && sum > 0) {
+                    let RevenueWithTax = formatNumber(sum.toFixed(2));
+                    let RevenueWithoutTax = formatNumber((sum / 1.195).toFixed(2));
+
+                    document.getElementById('resultWithTax').innerText = "Revenue with tax: " + RevenueWithTax;
+                    document.getElementById('resultWithoutTax').innerText = "Revenue without tax: " + RevenueWithoutTax;
+                } else {
+                    document.getElementById('resultWithTax').innerText = "Invalid input. Please enter numbers.";
+                    document.getElementById('resultWithoutTax').innerText = "";
+                }
+            } else {
+                document.getElementById('resultWithTax').innerText = "Revenue with tax: -";
+                document.getElementById('resultWithoutTax').innerText = "Revenue without tax: -";
+            }
+        }
+
+        function calculateOpenDates() {
+            let selectedDate = document.getElementById('selectedDate').value;
+            if (!selectedDate) {
+                document.getElementById('prepaidResult').innerText = "Please select a date.";
+                document.getElementById('mbbResult').innerText = "";
+                return;
+            }
+
+            let date = new Date(selectedDate);
+
+            // Subtract days for Prepaid (20 days before)
+            let prepaidDate = new Date(date);
+            prepaidDate.setDate(prepaidDate.getDate() - 25);
+
+            // Subtract days for MBB (31 days before)
+            let mbbDate = new Date(date);
+            mbbDate.setDate(mbbDate.getDate() - 31);
+
+            // Format the date as "DD Month YYYY"
+            let options = { day: '2-digit', month: 'long', year: 'numeric' };
+            let prepaidFormatted = prepaidDate.toLocaleDateString('en-GB', options);
+            let mbbFormatted = mbbDate.toLocaleDateString('en-GB', options);
+
+            document.getElementById('prepaidResult').innerText = "Prepaid Open Date: " + prepaidFormatted;
+            document.getElementById('mbbResult').innerText = "MBB Open Date: " + mbbFormatted;
+        }
+
+        // Function to add a plus sign to the input
+        function addPlus() {
+            let input = document.getElementById('RevenueInput');
+            input.value = input.value.trim() + '+';
+        }
+
+        // NEW: Clear input function
+        function clearInput() {
+            document.getElementById('RevenueInput').value = '';
+            document.getElementById('resultWithTax').innerText = "Revenue with tax: -";
+            document.getElementById('resultWithoutTax').innerText = "Revenue without tax: -";
+        }
+    </script>
+
+</body>
+</html>
